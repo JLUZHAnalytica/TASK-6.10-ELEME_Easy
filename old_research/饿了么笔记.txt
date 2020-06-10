@@ -1,0 +1,65 @@
+API&html
+	商铺列表(北京西站)api：
+		https://h5.ele.me/restapi/shopping/v3/restaurants?latitude=39.89491&longitude=116.322056&offset=0&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5
+		API说明：
+			提供经纬度获取附近的商铺列表信息
+		参数说明：
+			latitude纬度
+			longitude经度
+			offset开始页(没有限制)
+			limit每页条目数(范围1~20)
+	商铺&商品详情api：
+		https://h5.ele.me/pizza/shopping/restaurants/E6051436070912107651/batch_shop
+		API说明:
+			提供商铺id获取商铺的详情信息和菜品的信息
+		参数说明：
+			E6051436070912107651-商铺编号
+	商铺&商品的网页:
+		https://h5.ele.me/shop/#id=E6051436070912107651
+
+	通过位置获取经纬度api
+		全部城市的经纬度    
+		https://shadow.elemecdn.com/lib/city-list@0.0.3/city_list.json
+注意事项(反爬虫)
+	需要登陆(直接提供登陆好的cookies)
+		所有全部（41）登陆成功，保存cookies到一个记事本中，我们每个人随时动态获取。
+	字体加密-可以通过设置headers自动取消-详情可以见百度搜索-（饿了么 爬虫）
+		https://blog.csdn.net/bojueshujv/article/details/106211411
+	验证码？
+		
+目标
+	测试目标-明天14:00前完成北京所有地点经纬度的数据采集
+		已经提供了北京市的所有地区(856)的经纬度，我们需要采集全部的商铺&商品信息，保存为csv,excel
+		保存csv
+			https://blog.csdn.net/katyusha1/article/details/81606175
+		116.0335,39.8785,北京市,北京市,131,门头沟区,110109
+		116.0335,39.9055,北京市,北京市,131,门头沟区,110109
+		116.0335,39.9325,北京市,北京市,131,门头沟区,110109
+		目标拆分：
+			1.获取856个地区的全部商品列表id(获取、去重、...)，假如获取到了10W个店铺---
+				辅助操作，维护正常请问的headers(批量登陆41个账号，离线保存cookies信息)
+			2.获取10W店铺数据&菜品数据-----OK
+				提前解析一个店铺字段信息和菜品数据信息,解析json字符串数据，生成一行需要的数据
+			3.分别保存店铺数据和菜品数据
+	完整目标-采集全国56个城市的数据
+
+
+url
+headers=
+{
+:authority: h5.ele.me
+:method: GET
+:path: /pizza/shopping/restaurants/E6051436070912107651/batch_shop
+:scheme: https
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8
+cache-control: max-age=0
+cookie: __wpkreporterwid_=8e0b75f7-4f92-4e0f-acbc-6426f81b66d6; ubt_ssid=ezbb0huq453ksm4zx0myl6noqi0ndhb5_2020-06-04; perf_ssid=vc96yh1xi2up6x20hw5mlvm3h3yvheuv_2020-06-04; ut_ubt_ssid=6hmjnvl8hb3jqlr5hox217eu9biwasoq_2020-06-04; cna=y04RFAvdjEoCATttm6NPX3ou; _bl_uid=sUkp9bOd004mtkjnIwLycIad691C; _utrace=3f683ee8db39e595be110e1075d98c6c_2020-06-04; _samesite_flag_=true; cookie2=1e23d6ce6b0157bea3b4448ed63c7f8e; t=95e4f355512647f9c02ea566e398047f; _tb_token_=5355b85ee17e; csg=e76a4a5a; t_eleuc4=id4=0%40BA%2FvuHCrrRkTbsassFE6gS5S2P1Ssxm3K325ow%3D%3D; munb=2204946726619; SID=BAAAAAA7bjui7AAGJQDH5Pbfmk1jJojVseSrQjuukwCTc1G93-2H5bKN; USERID=997079970; UTUSER=997079970; tzyy=36847c986d8e8d774d5d388df833e53a; x5check_ele=83fJ6jvCPjkKAOvkH%2F9H0dHsYxqZb68aznLQ8WYnwWU%3D; l=eBPuxa7rQWL_xdgoBO5CFurza77ToIRb8sPzaNbMiIncC63lGqJt5tAQLsoLjLtRR8XcT-8B46aJ5OeTPerQJy91kaQE-1IVlgHDBef..; isg=BDc31_J4JdJ0kqFasPNBriKDxiuB_AteFSlZpYnk34dHOFZ6kc0Rrn4SHphm0OPW
+sec-fetch-dest: document
+sec-fetch-mode: navigate
+sec-fetch-site: none
+sec-fetch-user: ?1
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36
+}
