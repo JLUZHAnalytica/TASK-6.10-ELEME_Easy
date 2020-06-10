@@ -2,9 +2,9 @@
 
 ## 需求
 
-![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/img/WX20200610-232104@2x.png?raw=true)
+![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232104@2x.png?raw=true)
 
-![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/img/WX20200610-232153@2x.png?raw=true)
+![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232153@2x.png?raw=true)
 
 ## 我们已经做完了什么
 
