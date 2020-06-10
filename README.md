@@ -1,11 +1,5 @@
 # TASK-6.10-ELEME_Easy
 
-## 需求
-
-![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232104@2x.png?raw=true)
-
-![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232153@2x.png?raw=true)
-
 ## 我们已经做完了什么
 
 对店铺详情的获取已经基本完成，可以参见 old_research/high_level_parse_demo.py 中对店铺详情的解析部分。其中有一些未能实现的（比如对地点的获取），可以参见同目录下另外一份解析程序。
@@ -32,3 +26,9 @@
 * 文件名的命名请保证有意义，并避免互相冲突
 
 * 本次因不涉及多人修改同一文件，可以直接 push 更改到 master 分支
+
+## 需求
+
+![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232104@2x.png?raw=true)
+
+![image](https://github.com/JLUZHAnalytica/TASK-6.10-ELEME_Easy/blob/master/img/WX20200610-232153@2x.png?raw=true)
