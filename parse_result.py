@@ -17,7 +17,7 @@ def pares(load_dict):
     print(shop)
     filename='output/res/shop_info.json'
     json_shop = json.dumps(shop,ensure_ascii=False,indent=4)
-    with open (filename,'a',encoding='utf-8') as fd:
+    with open (filename,'w',encoding='utf-8') as fd:
         fd.write(json_shop)
 
 
