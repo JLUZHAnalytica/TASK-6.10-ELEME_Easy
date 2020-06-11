@@ -1,10 +1,11 @@
-import json
-import urllib.request
+def get_shop_detail(shop_id):
+    url = 'https://h5.ele.me/pizza/shopping/restaurants/' + shop_id + '/batch_shop?extras=%5B%22activities%22%2C%22albums%22%2C%22license%22%2C%22identification%22%2C%22qualification%22%5D'
+    try:
+        response = requests.get(url, headers=headers)
+        print('详情页')
+        html_str = response.text
+    except Exception:
+        print('报错')
 
-def get_record(store_id):
-    url = 'https://h5.ele.me/pizza/shopping/restaurants/%s/batch_shop?' % (shop_id)
-    resp = urllib.request.urlopen(url)
-    ele_json = json.loads(resp.read())
-    return ele_json
-
-
+    html_json = json.loads(html_str)
+    return html_json
