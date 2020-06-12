@@ -29,7 +29,7 @@ def login():
     # 修改windows.navigator.webdriver，防机器人识别机制，selenium自动登陆判别机制desired_capabilities=capabilities,
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     # drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
-    drive = webdriver.Chrome(options=options)  # bin目录中放置driver
+    drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)  # bin目录中放置driver
     # CDP执行JavaScript 代码  重定义windows.navigator.webdriver的值
     drive.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
@@ -113,12 +113,17 @@ def choose(web):
                     break
                 web.execute_script("document.getElementsByClassName('morefilter-3GXUR_0')[{}].click()".format(num - 1))
         elif i == 2:
-            num = int(input('请选择：'))
+            num = int(input('请选择(按下:-1退出选择)：'))
+            if num == -1:
+                continue
             web.execute_script("document.getElementsByClassName('morefilter-3GXUR_0')[{}].click()".format(num - 1 + 7))
         else:
-            num = int(input('请选择：'))
+            num = int(input('请选择(按下:-1退出选择)：'))
+            if num == -1:
+                continue
             web.execute_script("document.getElementsByClassName('morefilter-3GXUR_0')[{}].click()".format(num - 1 + 9))
             web.execute_script("document.getElementsByClassName('morefilter-16ilq_0 morefilter-2Dfps_0')[0].click()")
+    sleep(5)
 
 
 def get_shop_lsit(web):
