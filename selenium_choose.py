@@ -5,22 +5,30 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from time import sleep
+import json
 
 
+# 加载文件中保存的cookie
+def load_cookie(web):
+    with open("output/temp/cookie_get.json") as fd:
+        cookies = json.loads(fd.read())
+    for cookie in cookies:
+        web.add_cookie(cookie)
 
 def login():
     '''启动chrom进行登录'''
     options = webdriver.ChromeOptions()
 #     '''设置浏览器为手机显示'''
-#     mobile_emulation = {"deviceName":"Galaxy S5"}
-#     capabilities = DesiredCapabilities.CHROME
-#     capabilities['loggingPrefs'] = { 'browser':'ALL' }
-#     options = webdriver.ChromeOptions()
-#     options.add_experimental_option("mobileEmulation", mobile_emulation)
-#     options.add_experimental_option("excludeSwitches", ['enable-automation'])
+    mobile_emulation = {"deviceName":"Galaxy S5"}
+    capabilities = DesiredCapabilities.CHROME
+    capabilities['loggingPrefs'] = { 'browser':'ALL' }
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    options.add_experimental_option("excludeSwitches", ['enable-automation'])
     #修改windows.navigator.webdriver，防机器人识别机制，selenium自动登陆判别机制desired_capabilities=capabilities,
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
+    # drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
+    drive = webdriver.Chrome(options=options) # bin目录中放置driver
     #CDP执行JavaScript 代码  重定义windows.navigator.webdriver的值
     drive.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
@@ -32,6 +40,11 @@ def login():
     url = 'https://h5.ele.me/'
     drive.implicitly_wait(10)
     drive.get(url)
+
+    # 实现登陆，请务必先运行get_bookie.py
+    load_cookie(drive) #加载必须在打开页面之后 
+    drive.refresh() #刷新后发现正常登陆
+
     my = drive.find_element_by_xpath('//*[@ubt-click="105141"]')
     my.click()
     time.sleep(1)
@@ -104,3 +117,5 @@ def choose(web):
             num = int(input('请选择：'))
             web.execute_script("document.getElementsByClassName('morefilter-3GXUR_0')[{}].click()".format(num - 1 + 9))
             web.execute_script("document.getElementsByClassName('morefilter-16ilq_0 morefilter-2Dfps_0')[0].click()")
+
+login()
