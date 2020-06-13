@@ -28,8 +28,10 @@ def login():
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     # 修改windows.navigator.webdriver，防机器人识别机制，selenium自动登陆判别机制desired_capabilities=capabilities,
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
+
     # drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
-    drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)  # bin目录中放置driver
+    drive = webdriver.Chrome(options=options)  # bin目录中放置driver
+    
     # CDP执行JavaScript 代码  重定义windows.navigator.webdriver的值
     drive.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
@@ -67,15 +69,22 @@ def choose(web):
     city = str(input('请输入城市名:'))
     Input.send_keys(city)
     citys = web.find_elements_by_xpath('//*[@class="city-5r26m_0"]')
+    citys = citys[:5]
     for i in citys:
         if citys.index(i) > 5:
             break
         print(citys.index(i) + 1, '：' + i.text.replace('\n', ' '))
+    if len(citys)>5:
+        citys = citys[:5]
     num = 0
-    while num < 1 or num > 5:
-        num = int(input('请选择地址：'))
-        if num < 1 or num > 5:
+    while num < 1 or num > len(citys):
+        try:
+            num = int(input('请选择地址：'))
+            if num < 1 or num > len(citys):
+                print('输入错误！')
+        except:
             print('输入错误！')
+            num = 0
     citys[num - 1].click()
     sleep(1)
     address = web.find_element_by_xpath('//*[@placeholder="请输入地址"]')
@@ -83,18 +92,24 @@ def choose(web):
     address_describe = str(input('请输入详细地址:'))
     address.send_keys(address_describe)
     sleep(1)
-    address_describe = web.find_elements_by_xpath('//*[@class="AddressCell-2WCnC_0"]')
+    address_describe = web.find_elements_by_xpath('/html/body/div/div[2]/section[1]/div')
     address_list = []
     for i in address_describe:
-        if address_describe.index(i) > 5:
+        if address_describe.index(i) > 5 or address_describe.index(i) > len(address_describe):
             break
         address_list.append(i.text.replace('\n', ' '))
         print(address_describe.index(i) + 1, '：' + i.text.replace('\n', ' '))
+    if len(address_describe)>6:
+        address_describe = address_describe[:6]
     num = 0
-    while num < 1 or num > 6:
-        num = int(input('请选择地址：'))
-        if num < 1 or num > 6:
+    while num < 1 or num > len(address_describe):
+        try:
+            num = int(input('请选择地址：'))
+            if num < 1 or num > len(address_describe):
+                print('输入错误！')
+        except:
             print('输入错误！')
+            num = 0
     address_describe[num - 1].click()
     print('您选择的地址为：', address_list[num - 1])
     web.execute_script("document.getElementsByClassName('filter-nav-more')[0].click()")
