@@ -8,7 +8,7 @@ def get_phone_number(url):
         "User-Agent": 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36',
         'Cookie': cookie_to_str()}
     response = requests.get(url, headers=headers)
-    phone = json.load(response.text)
+    phone = json.loads(response.text)
     phone_num = phone[0]['numbers']
     return phone_num
 
