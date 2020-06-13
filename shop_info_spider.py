@@ -1,21 +1,28 @@
 import json
 import requests
+from get_cookie import cookie_to_str
 
 
-def get_shop_detail(shop_id_list, cookie):
+def get_phone_number(url):
+    headers = {
+        "User-Agent": 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36',
+        'Cookie': cookie_to_str()}
+    response = requests.get(url, headers=headers)
+    phone = json.load(response.text)
+    phone_num = phone[0]['numbers']
+    return phone_num
+
+def get_shop_detail(shop_id_list):
     ls = []
     user_agent = 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML,' \
                  'like Gecko)Chrome/83.0.4103.61 Mobile Safari/537.36 '
-    with open('cookie_get.json','r',encoding='utf-8') as f:
-        listCookies=json.loads(f.read())
-    cookie = [item["name"] + "=" + item["value"] for item in listCookies]
-    cookiestr = '; '.join(item for item in cookie)
-    print(cookiestr)
+    
+    # print(cookiestr)
     for shop_id in shop_id_list:
         headers = {'accept': 'application/json, text/plain, */*',
                    'accept-encoding': 'gzip, deflate, br',
                    'accept-language': 'zh-CN,zh;q=0.9',
-                   'cookie': cookiestr,
+                   'cookie': cookie_to_str(),
                    'referer': 'https://h5.ele.me/shop/',
                    'sec-fetch-dest': 'empty',
                    'sec-fetch-mode': 'cors',
