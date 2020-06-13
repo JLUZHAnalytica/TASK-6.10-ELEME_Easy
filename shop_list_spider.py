@@ -28,8 +28,10 @@ def login():
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     # 修改windows.navigator.webdriver，防机器人识别机制，selenium自动登陆判别机制desired_capabilities=capabilities,
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
+
     # drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
-    drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)  # bin目录中放置driver
+    drive = webdriver.Chrome(options=options)  # bin目录中放置driver
+    
     # CDP执行JavaScript 代码  重定义windows.navigator.webdriver的值
     drive.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": """
