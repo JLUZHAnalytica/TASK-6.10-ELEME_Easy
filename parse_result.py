@@ -17,7 +17,7 @@ def pares(load_dict_list, filename):
         youhui = []
         for i in shop_desrc:
             youhui.append(i['description'])
-        phone_num = get_phone_number(url)
+        phone_num = get_phone_number('https://h5.ele.me/restapi/giraffe/restaurant/phone?shopId={}'.format(ID))
         shop = {'商铺名': name, '店铺ID': ID, '地址': address,
                 '联系方式': phone_num, '店铺链接': lianjie,
                 '店铺优惠': youhui}
@@ -34,8 +34,6 @@ def pares(load_dict_list, filename):
 
 # 单元测试
 if __name__ == '__main__':
-    url = 'https://h5.ele.me/restapi/giraffe/restaurant/phone?shopId=E5911365526736648620'
-    
     file = 'old_research/demo_data/batch_shop_demo_full.json'
     # 新：名字，地址，优惠，电话
     with open(file, 'r', encoding='utf-8') as f:
