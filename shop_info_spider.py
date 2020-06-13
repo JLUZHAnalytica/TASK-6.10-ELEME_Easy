@@ -37,10 +37,10 @@ def get_shop_detail(shop_id_list):
               '/batch_shop?extras=%5B%22activities%22%2C%22albums%22%2C%22license%22%2C%22identification%22%2C%22qualification%22%5D'
         try:
             response = requests.get(url, headers=headers)
-            print('详情页')
+            print('详情页 {} 爬取成功...'.format(shop_id_list.index(shop_id)+1))
             html_str = response.text
         except Exception:
-            print('报错')
+            print('详情页 {} 爬取失败！！'.format(shop_id_list.index(shop_id)+1))
         ls.append(html_str)
     return ls
 

@@ -29,8 +29,8 @@ def login():
     # 修改windows.navigator.webdriver，防机器人识别机制，selenium自动登陆判别机制desired_capabilities=capabilities,
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
 
-    # drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
-    drive = webdriver.Chrome(options=options)  # bin目录中放置driver
+    drive = webdriver.Chrome(executable_path='E:\Google\Chrome\Application\chromedriver.exe',options=options)
+    # drive = webdriver.Chrome(options=options)  # bin目录中放置driver
     
     # CDP执行JavaScript 代码  重定义windows.navigator.webdriver的值
     drive.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
@@ -77,9 +77,9 @@ def choose(web):
     if len(citys)>5:
         citys = citys[:5]
     num = 0
-    while num < 1 or num > len(citys):
+    while num < 1 or num > len(citys) :
         try:
-            num = int(input('请选择地址：'))
+            num = int(input('请选择城市：'))
             if num < 1 or num > len(citys):
                 print('输入错误！')
         except:
@@ -135,9 +135,9 @@ def choose(web):
         else:
             num = int(input('请选择(按下:-1退出选择)：'))
             if num == -1:
+                web.execute_script("document.getElementsByClassName('morefilter-16ilq_0 morefilter-2Dfps_0')[0].click()")
                 continue
             web.execute_script("document.getElementsByClassName('morefilter-3GXUR_0')[{}].click()".format(num - 1 + 9))
-            web.execute_script("document.getElementsByClassName('morefilter-16ilq_0 morefilter-2Dfps_0')[0].click()")
     sleep(5)
 
 
